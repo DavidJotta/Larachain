@@ -65,6 +65,18 @@ class Larachain {
     }
 
     /**
+     * Shortcut to toBTC() sub-class method
+     *
+     * @param $amount
+     * @param $currency
+     *
+     * @return mixed
+     */
+    public function toBTC($amount, $currency) {
+        return $this->Rates->toBTC($amount, $currency);
+    }
+
+    /**
      * GET the Blockchain API
      *
      * @param string $resource
