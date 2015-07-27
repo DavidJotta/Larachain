@@ -28,11 +28,6 @@ class Larachain {
     protected $channel;
 
     /**
-     * @var API URL
-     */
-    protected $apiURL;
-
-    /**
      * Class-referenced variables
      *
      * @var Rates reference
@@ -45,9 +40,12 @@ class Larachain {
      * @param Repository $config
      */
     public function __construct(Repository $config) {
-        $this->config = $config;
+        $this->config = array(
+            'api_url' => config('api_url'),
+            'api_code' => config('api_code'),
+            'default_wallet' => config('default_wallet')
+        );
         $this->channel = curl_init();
-        $this->apiURL = $config['api_url'];
         curl_setopt($this->channel, CURLOPT_USERAGENT, 'Larachain/0.1');
         curl_setopt($this->channel, CURLOPT_HEADER, false);
         curl_setopt($this->channel, CURLOPT_RETURNTRANSFER, true);
@@ -89,7 +87,7 @@ class Larachain {
         $params['api_code'] = $this->config['api_code'];
         curl_setopt($this->channel, CURLOPT_HTTPHEADER, array());
         $query = http_build_query($params);
-        curl_setopt($this->channel, CURLOPT_URL, $this->apiURL.$resource.'?'.$query);
+        curl_setopt($this->channel, CURLOPT_URL, $this->config['api_url'].$resource.'?'.$query);
         return $this->_call();
     }
 
@@ -103,7 +101,7 @@ class Larachain {
      */
     public function postAPI($resource, $data = null) {
         curl_setopt($this->channel, CURLOPT_POST, true);
-        curl_setopt($this->channel, CURLOPT_URL, $this->apiURL.$resource);
+        curl_setopt($this->channel, CURLOPT_URL, $this->config['api_url'].$resource);
         curl_setopt($this->channel, CURLOPT_HTTPHEADER, array("Content-Type: application/x-www-form-urlencoded"));
         $data['api_code'] = $this->config['api_code'];
         curl_setopt($this->channel, CURLOPT_POSTFIELDS, http_build_query($data));
