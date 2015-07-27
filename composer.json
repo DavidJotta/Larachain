@@ -1,0 +1,24 @@
+{
+  "name": "davidjotta/larachain",
+  "description": "Blockchain API for Laravel 5.1!",
+  "keywords": ["blockchain", "bitcoin", "blockchain-api", "laravel", "larachain"],
+  "license": "The UNLICENSE",
+  "authors": [
+    {
+      "name": "DavidJotta",
+      "email": "davidjotta143@gmail.com",
+      "homepage": "https://github.com/davidjotta",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "illuminate/config": "~5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "DavidJotta\\Larachain\\": "src/"
+    }
+  },
+  "minimum-stability": "stable"
+}
