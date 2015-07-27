@@ -95,7 +95,8 @@ class Larachain {
         curl_setopt($this->channel, CURLOPT_HTTPHEADER, array("Content-Type: application/x-www-form-urlencoded"));
         $data['api_code'] = $this->config['api_code'];
         curl_setopt($this->channel, CURLOPT_POSTFIELDS, http_build_query($data));
-        return $this->_call();
+        $json = $this->_call();
+        return $json;
     }
 
     /**
@@ -105,6 +106,7 @@ class Larachain {
      */
     private function _call() {
         $response = curl_exec($this->channel);
-        return json_decode($response, true);
+        $json = json_decode($response, true);
+        return $json;
     }
 }

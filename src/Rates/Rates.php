@@ -31,20 +31,6 @@ class Rates {
     }
 
     /**
-     * Get Rates from Blockchain API
-     *
-     * @return array
-     */
-    public function get() {
-        $rates = array();
-        $json = $this->larachain->getAPI('ticker', array('format' => 'json'));
-        foreach($json as $cur => $data) {
-            $rates[$cur] = new Ticker($cur, $data);
-        }
-        return $rates;
-    }
-
-    /**
      * Convert $amount to Bitcoins
      *
      * @param $amount
