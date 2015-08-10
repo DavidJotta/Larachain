@@ -16,12 +16,22 @@ return [
     'default_wallet' => '',
 
     /**
-     * In case of having an API key, you can specify it here.
+     * In case of having an API key, you can specify it here,
+     * basically it allows you to bypass the API request limits.
      *
-     * For more info, check the following @link.
      * @link https://blockchain.info/es/api/api_create_code
      */
 
-    'api_code' => ''
+    'api_code' => '',
+
+    /**
+     * Default callback URL, basically Blockchain will contact
+     * that address after a successful deposit into a gateway
+     * address.
+     * 
+     * @link https://blockchain.info/es/api/api_receive
+     */
+
+    'callback_url' => ''
 
 ];
