@@ -13,6 +13,7 @@
  */
 
 use DavidJotta\Larachain\Rates\Rates;
+use DavidJotta\Larachain\Gateways\Gateways;
 use Illuminate\Config\Repository;
 
 class Larachain {
