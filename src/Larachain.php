@@ -75,7 +75,7 @@ class Larachain {
      *
      * @return mixed
      */
-    public function toBTC($amount, $currency) {
+    public static function toBTC($amount, $currency) {
         return $this->Rates->toBTC($amount, $currency);
     }
 
@@ -87,9 +87,9 @@ class Larachain {
      *
      * @return mixed
      */
-    public function createGateway($address = null, $callback = null) {
-        if(!isset($address)) $address = $this->config['default_address'];
-        if(!isset($callback)) $callback = $this->config['callback_url'];
+    public static function createGateway($address = null, $callback = null) {
+        if(null === $address) $address = $this->config['default_address'];
+        if(null === $callback) $callback = $this->config['callback_url'];
         return $this->Gateways->createGateway($address, $callback);
     }
 
