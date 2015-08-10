@@ -86,7 +86,7 @@ class Larachain {
      *
      * @return mixed
      */
-    public function createGateway($address = $this->config['default_wallet'], $callback = $this->config['callback_url']) {
+    public function createGateway($address = self::$config['default_wallet'], $callback = self::$config['callback_url']) {
         return $this->Gateways->createGateway($address, $callback);
     }
 
