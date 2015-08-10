@@ -40,12 +40,12 @@ class Larachain {
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct(Repository $config) {
         $this->config = array(
-            'api_url' => config('api_url'),
-            'api_code' => config('api_code'),
-            'default_wallet' => config('default_wallet'),
-            'callback_url' => config('callback_url')
+            'api_url' => config('larachain.api_url'),
+            'api_code' => config('larachain.api_code'),
+            'default_wallet' => config('larachain.default_wallet'),
+            'callback_url' => config('larachain.callback_url')
         );
         $this->channel = curl_init();
         curl_setopt($this->channel, CURLOPT_USERAGENT, 'Larachain/0.1');
@@ -53,7 +53,7 @@ class Larachain {
         curl_setopt($this->channel, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->channel, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($this->channel, CURLOPT_TIMEOUT, 60);
-        curl_setopt($this->channel, CURLOPT_CAINFO, dirname(__FILE__).'/Blockchain/ca-bundle.crt');
+        curl_setopt($this->channel, CURLOPT_SSL_VERIFYPEER, false);
         $this->Rates = new Rates($this);
         $this->Gateways = new Gateways($this);
     }
@@ -102,7 +102,6 @@ class Larachain {
     public function getAPI($resource, $params = null) {
         curl_setopt($this->channel, CURLOPT_POST, false);
         if(!empty($this->config['api_code'])) $params['api_code'] = $this->config['api_code'];
-        curl_setopt($this->channel, CURLOPT_HTTPHEADER, array());
         $query = http_build_query($params);
         curl_setopt($this->channel, CURLOPT_URL, $this->config['api_url'].$resource.'?'.$query);
         return $this->_call();

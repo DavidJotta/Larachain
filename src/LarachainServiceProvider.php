@@ -42,7 +42,7 @@ class LarachainServiceProvider extends ServiceProvider {
     public function register() {
         $this->mergeConfigFrom(__DIR__.'/../config/larachain.php', 'larachain');
         $this->app->bind('larachain', function($app) {
-            return new Larachain();
+            return new Larachain($app['Illuminate\Config\Repository']);
         });
     }
 
