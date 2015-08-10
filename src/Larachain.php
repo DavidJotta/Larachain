@@ -39,10 +39,8 @@ class Larachain {
 
     /**
      * Constructor
-     *
-     * @param Repository $config
      */
-    public function __construct(Repository $config) {
+    public function __construct() {
         $this->config = array(
             'api_url' => config('api_url'),
             'api_code' => config('api_code'),
@@ -75,8 +73,8 @@ class Larachain {
      *
      * @return mixed
      */
-    public static function toBTC($amount, $currency) {
-        return self::$Rates->toBTC($amount, $currency);
+    public function toBTC($amount, $currency) {
+        return $this->Rates->toBTC($amount, $currency);
     }
 
     /**
@@ -87,10 +85,10 @@ class Larachain {
      *
      * @return mixed
      */
-    public static function createGateway($address = null, $callback = null) {
-        if(null === $address) $address = self::$config['default_address'];
-        if(null === $callback) $callback = self::$config['callback_url'];
-        return self::$Gateways->createGateway($address, $callback);
+    public function createGateway($address = null, $callback = null) {
+        if(null === $address) $address = $this->config['default_address'];
+        if(null === $callback) $callback = $this->config['callback_url'];
+        return $this->Gateways->createGateway($address, $callback);
     }
 
     /**
@@ -103,7 +101,7 @@ class Larachain {
      */
     public function getAPI($resource, $params = null) {
         curl_setopt($this->channel, CURLOPT_POST, false);
-        (!empty($this->config['api_code'])) ? $params['api_code'] = $this->config['api_code'] : '';
+        if(!empty($this->config['api_code'])) $params['api_code'] = $this->config['api_code'];
         curl_setopt($this->channel, CURLOPT_HTTPHEADER, array());
         $query = http_build_query($params);
         curl_setopt($this->channel, CURLOPT_URL, $this->config['api_url'].$resource.'?'.$query);
@@ -122,7 +120,7 @@ class Larachain {
         curl_setopt($this->channel, CURLOPT_POST, true);
         curl_setopt($this->channel, CURLOPT_URL, $this->config['api_url'].$resource);
         curl_setopt($this->channel, CURLOPT_HTTPHEADER, array("Content-Type: application/x-www-form-urlencoded"));
-        (!empty($this->config['api_code'])) ? $params['api_code'] = $this->config['api_code'] : '';
+        if(!empty($this->config['api_code'])) $params['api_code'] = $this->config['api_code'];
         curl_setopt($this->channel, CURLOPT_POSTFIELDS, http_build_query($data));
         $json = $this->_call();
         return $json;

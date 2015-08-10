@@ -17,6 +17,13 @@ use Illuminate\Support\ServiceProvider;
 class LarachainServiceProvider extends ServiceProvider {
 
     /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
+
+    /**
      * Boot Larachain service provider.
      *
      * @return void
@@ -35,9 +42,16 @@ class LarachainServiceProvider extends ServiceProvider {
     public function register() {
         $this->mergeConfigFrom(__DIR__.'/../config/larachain.php', 'larachain');
         $this->app->bind('larachain', function($app) {
-            return new Larachain(
-                $app['Illuminate\Config\Repository']
-            );
+            return new Larachain();
         });
+    }
+
+    /**
+     * Get the services provided by the Larachain provider.
+     *
+     * @return array
+     */
+    public function provides() {
+        return array('larachain');
     }
 }
