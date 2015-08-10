@@ -38,7 +38,7 @@ class Gateways {
      *
      * @return mixed
      */
-    public function createGateway($address = $this->larachain->config['default_wallet'], $callback = $this->larachain->config['callback_url']) {
+    public function createGateway($address, $callback) {
         $params = array(
             'address' => $address,
             'callback' => $callback,
