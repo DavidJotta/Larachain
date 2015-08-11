@@ -45,7 +45,8 @@ class Larachain {
             'api_url' => config('larachain.api_url'),
             'api_code' => config('larachain.api_code'),
             'default_wallet' => config('larachain.default_wallet'),
-            'callback_url' => config('larachain.callback_url')
+            'callback_url' => config('larachain.callback_url'),
+            'secret_token' => config('larachain.secret_token')
         );
         $this->channel = curl_init();
         curl_setopt($this->channel, CURLOPT_USERAGENT, 'Larachain/0.1');
@@ -89,6 +90,15 @@ class Larachain {
         if(null === $address) $address = $this->config['default_wallet'];
         if(null === $callback) $callback = $this->config['callback_url'];
         return $this->Gateways->createGateway($address, $callback);
+    }
+
+    /**
+     * Return the secret token
+     *
+     * @return string
+     */
+    public function getSecret() {
+        return $this->config['secret_token'];
     }
 
     /**

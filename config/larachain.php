@@ -32,6 +32,16 @@ return [
      * @link https://blockchain.info/es/api/api_receive
      */
 
-    'callback_url' => ''
+    'callback_url' => '',
+
+    /**
+     * Callback secret authentication token, used to verify
+     * callback requests and make sure that they come from
+     * Blockchain's API.
+     * 
+     * @link https://blockchain.info/es/api/api_receive
+     */
+
+    'secret_token' => 'SomeRandomString'
 
 ];
