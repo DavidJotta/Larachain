@@ -40,10 +40,13 @@ class Gateways {
      */
     public function createGateway($address, $callback) {
         $params = array(
+            'method' => 'create',
+            'cors' => 'true',
+            'format' => 'json',
             'address' => $address,
-            'callback' => $callback,
-            'format' => 'json'
+            'shared' => 'false',
+            'callback' => urldecode(urlencode($callback))
         );
-        return $this->larachain->getAPI('create', $params);
+        return $this->larachain->getAPI('api/receive', $params);
     }
 }
